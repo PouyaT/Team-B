@@ -29,33 +29,9 @@ void DriveTrain::setRawOutput(float left, float right) {
 	left = coerce(left) * 255;
 	right = coerce(right) * 255;
 
-	if ( leftDirection == forward ) {
-	  analogWrite( left1, left );
-	  analogWrite( left2, 0 );
-	}
-	else if ( leftDirection == backwards ) {
-	  analogWrite( left2, left);
-	  analogWrite( left1, 0);
-	}
-	else {
-	  analogWrite ( left2, 0 );
-	  analogWrite ( left1, 0);
-	}
-	
-	if ( rightDirection == forward ) {
-	  analogWrite( right1, right );
-	  analogWrite( right2, 0 );
-	}
-	else if ( rightDirection == backwards ) {
-	  analogWrite( right2, right );
-	  analogWrite( right1, 0 );
-	}
-	else {
-	  analogWrite( right2, 0 );
-	  analogWrite( right1, 0 );
-	}
+
 }
 
-void DriveTrain::ultimate() {
-  
+void DriveTrain::spin() {
+
 }
