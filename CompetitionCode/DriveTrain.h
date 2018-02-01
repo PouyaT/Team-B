@@ -1,25 +1,32 @@
+/*
+ * represents the robot motors
+ */
+
 #ifndef DRIVETRAIN_H_
 #define DRIVETRAIN_H_
-
-#define left1 10
-#define right1 5
-#define left2 11
-#define right2 6
 
 #include <Arduino.h>
 
 class DriveTrain {
-	enum direction {
-		forward,
-		backward,
-		idle
-	};
-	private:
-		float coerce(float value);
-	public:
-		DriveTrain();
-		void setRawOutput(float left, float right);
-		void spin();
+  enum direction {
+    forward,
+    backward,
+    idle
+  };
+ private:
+  float coerce(float value);
+	
+ protected:
+  int _left1;
+  int _left2;
+  int _right1;
+  int _right2;
+
+ public:
+  DriveTrain();
+  DriveTrain(int left1, int left2, int right1, int right2);
+  void setRawOutput(float left, float right);
+  void ultimate();
 };
 
 #endif

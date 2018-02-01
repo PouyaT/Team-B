@@ -1,12 +1,29 @@
 #include "DriveTrain.h"
 
+#define DEF_MOTPIN -1
+
+// Default Constructor: initializes 4 motor pins,
+// 2 for each motor
 DriveTrain::DriveTrain() {
-	pinMode(left1, OUTPUT);
-	pinMode(left2, OUTPUT);
-	pinMode(right1, OUTPUT);
-	pinMode(right2, OUTPUT);
+	pinMode(DEF_MOTPIN, OUTPUT);
 }
 
+// Constructor for directly assigning the pins, this should be the
+// one that is called
+DriveTrain::DriveTrain(int left1, int left2, int right1, int right2)
+{
+  _left1 = left1;
+  _left2 = left2;
+  _right1 = right1;
+  _right2 = right2;
+
+  pinMode(_left1, OUTPUT);
+  pinMode(_left2, OUTPUT);
+  pinMode(_right1, OUTPUT);
+  pinMode(_right2, OUTPUT);
+}
+
+// gives the magnitude of "value," from 0-1
 float DriveTrain::coerce(float value) {
 	if(abs(value) > 1.0) {
 		return 1.0;
@@ -16,6 +33,9 @@ float DriveTrain::coerce(float value) {
 	}
 }
 
+// takes in right and left wheel inputs, decides the
+// direction of the wheel based on sign, and uses
+// coerce to determine the magnitude
 void DriveTrain::setRawOutput(float left, float right) {
 	
 	direction leftDirection = idle;
@@ -30,32 +50,33 @@ void DriveTrain::setRawOutput(float left, float right) {
 	right = coerce(right) * 255;
 
 	if ( leftDirection == forward ) {
-	  analogWrite( left1, left );
-	  analogWrite( left2, 0 );
+	  analogWrite( _left1, left );
+	  analogWrite( _left2, 0 );
 	}
-	else if ( leftDirection == backwards ) {
-	  analogWrite( left2, left);
-	  analogWrite( left1, 0);
+	else if ( leftDirection == backward ) {
+	  analogWrite( _left2, left);
+	  analogWrite( _left1, 0);
 	}
 	else {
-	  analogWrite ( left2, 0 );
-	  analogWrite ( left1, 0);
+	  analogWrite ( _left2, 0 );
+	  analogWrite ( _left1, 0);
 	}
 	
 	if ( rightDirection == forward ) {
-	  analogWrite( right1, right );
-	  analogWrite( right2, 0 );
+	  analogWrite( _right1, right );
+	  analogWrite( _right2, 0 );
 	}
-	else if ( rightDirection == backwards ) {
-	  analogWrite( right2, right );
-	  analogWrite( right1, 0 );
+	else if ( rightDirection == backward ) {
+	  analogWrite( _right2, right );
+	  analogWrite( _right1, 0 );
 	}
 	else {
-	  analogWrite( right2, 0 );
-	  analogWrite( right1, 0 );
+	  analogWrite( _right2, 0 );
+	  analogWrite( _right1, 0 );
 	}
 }
 
+// the ultimate move
 void DriveTrain::ultimate() {
   
 }

@@ -1,60 +1,59 @@
 #include "UltraSonic.h"
 
-double UltraSonic::ping()
+// Constructor
+UltraSonic::UltraSonic(int masterPin)
 {
-  pinMode(trigPin,OUTPUT);
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-	
-	
-  pinMode(echoPin, INPUT);
-  time = pulseIn(echoPin, HIGH);
-  cm = microSecondsToCentimeters(time);
-  delay(10);
-  return cm;
+  _masterPin = masterPin;
+  _microseconds = 0;
+  _cm = 0;
 }
-UltraSonic::UltraSonic(int echoNumber, int trigNumber)
-{
-	this->echoPin = echoNumber;
-	this->trigPin = trigNumber;
-}
+
+// Default Constructor
 UltraSonic::UltraSonic()
 {
-  this->echoPin = -1;
-  this->trigPin = -1;
+  _masterPin = -1;
+  _microseconds = 0;
+  _cm = 0;
 }
 
-Ultrasonic::~UltraSonic()
+// Destructor
+UltraSonic::~UltraSonic()
 {
 
 }
 
-double UltraSonic::microSecondsToCentimeters(double microseconds)
+// Converts microseconds to centimers, used in ping()
+void UltraSonic::microSecondsToCentimeters()
 {
-  double cent;	
-  cent = microseconds / 58;
-  return cent;
+  _cm = _microseconds / 58;
 }
 
-void UltraSonic::setEchoPin(int pinNumber)
+// Uses the sensors to find the other robot
+// returns range in cm
+double UltraSonic::ping()
 {
-  this->echoPin = pinNumber;
+  pinMode(_masterPin,OUTPUT);
+  digitalWrite(_masterPin, LOW);
+  delayMicroseconds(10);
+  digitalWrite(_masterPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(_masterPin, LOW);
+
+
+  _microseconds = pulseIn(_masterPin, HIGH);
+  microSecondsToCentimeters();
+  delay(10);
+  return _cm;
 }
 
-void UltraSonic::setTrigPin(int pinNumber) 
+// sets the master pin
+void UltraSonic::setMasterPin(int masterPin)
 {
-  this->trigPin = trigPin
+  _masterPin = masterPin;
 }
 
-int UltraSonic::getEchoPin()
+// returns the master pin
+int UltraSonic::getMasterPin()
 {
-  return echoPin;
-}
-
-int UltraSonic::getTrigPin()
-{
-  return trigPin;
+  return _masterPin;
 }

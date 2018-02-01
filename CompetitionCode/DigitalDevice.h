@@ -1,3 +1,9 @@
+/*
+ * Represents a digital device. Could use an int* array for
+ * more pins. Default sets pin to -1, which could cause
+ * arduino error, idk
+ */
+
 #ifndef DIGITALDEVICE_H
 #define DIGITALDEVICE_H
 #include <Arduino.h>

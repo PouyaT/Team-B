@@ -1,23 +1,27 @@
+/*
+ * Sensor class for robot. Master pin is used for both triggering
+ * and receiving from the sensor, since they will never be going at the same time.
+ * 
+ * Use the ping() method to rangefind, only useful method for interacting objects
+ */
+
 #ifndef ULTRASONIC_H_
 #define ULTRASONIC_H_
 #include <Arduino.h>
 
 class UltraSonic{
  protected:
-  double cm;
-  double microseconds;
-  int echoPin;
-  int trigPin;
+  double _cm;
+  double _microseconds;
+  int _masterPin;
 public:
-  UltraSonic(int echoNumber, int trigNumber);
+  UltraSonic(int masterPin);
   UltraSonic();
   virtual ~UltraSonic();
-  double microSecondsToCentimeter(double microseconds);
+  void microSecondsToCentimeters();
   double ping();
-  void setEchoPin(int pinNumber);
-  void setTrigPin(int pinNumber);
-  int getEchoPin();
-  int getTrigPin();
+  void setMasterPin(int pinNumber);
+  int getMasterPin();
 };
 
 
