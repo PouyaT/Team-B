@@ -26,6 +26,7 @@ class DriveTrain {
   DriveTrain();
   DriveTrain(int left1, int left2, int right1, int right2);
   void setRawOutput(float left, float right);
+  void rotation(int deg);
   void ultimate();
 };
 

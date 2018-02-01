@@ -76,6 +76,13 @@ void DriveTrain::setRawOutput(float left, float right) {
 	}
 }
 
+// to rotate bot
+void DriveTrain::rotation(int deg) {
+  
+  // figure out raw output strength/length for rotations
+
+}
+
 // the ultimate move
 void DriveTrain::ultimate() {
   
