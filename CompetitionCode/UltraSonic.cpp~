@@ -2,16 +2,16 @@
 
 double UltraSonic::ping()
 {
-	pinMode(trigPin,OUTPUT);
-	digitalWrite(trigPin, LOW);
+	pinMode(pin,OUTPUT);
+	digitalWrite(pin, LOW);
 	delayMicroseconds(10);
-	digitalWrite(trigPin, HIGH);
+	digitalWrite(pin, HIGH);
 	delayMicroseconds(10);
-	digitalWrite(trigPin, LOW);
+	digitalWrite(pin,LOW);
 	
 	
-	pinMode(echoPin, INPUT);
-	time = pulseIn(echoPin, HIGH);
+	pinMode(pin, INPUT);
+	time = pulseIn(pin, HIGH);
 	cm = microSecondsToCentimeters(time);
 	delay(10);
 	return cm;
