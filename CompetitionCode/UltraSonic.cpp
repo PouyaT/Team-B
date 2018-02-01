@@ -2,19 +2,19 @@
 
 double UltraSonic::ping()
 {
-	pinMode(trigPin,OUTPUT);
-	digitalWrite(trigPin, LOW);
-	delayMicroseconds(10);
-	digitalWrite(trigPin, HIGH);
-	delayMicroseconds(10);
-	digitalWrite(trigPin, LOW);
+  pinMode(trigPin,OUTPUT);
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
 	
 	
-	pinMode(echoPin, INPUT);
-	time = pulseIn(echoPin, HIGH);
-	cm = microSecondsToCentimeters(time);
-	delay(10);
-	return cm;
+  pinMode(echoPin, INPUT);
+  time = pulseIn(echoPin, HIGH);
+  cm = microSecondsToCentimeters(time);
+  delay(10);
+  return cm;
 }
 UltraSonic::UltraSonic(int echoNumber, int trigNumber)
 {
@@ -27,19 +27,34 @@ UltraSonic::UltraSonic()
   this->trigPin = -1;
 }
 
+Ultrasonic::~UltraSonic()
+{
+
+}
+
 double UltraSonic::microSecondsToCentimeters(double microseconds)
 {
-	double cent;	
-	cent = microseconds / 58;
-	return cent;
+  double cent;	
+  cent = microseconds / 58;
+  return cent;
 }
 
 void UltraSonic::setEchoPin(int pinNumber)
 {
-	this->echoPin = pinNumber;
+  this->echoPin = pinNumber;
 }
 
 void UltraSonic::setTrigPin(int pinNumber) 
 {
   this->trigPin = trigPin
+}
+
+int UltraSonic::getEchoPin()
+{
+  return echoPin;
+}
+
+int UltraSonic::getTrigPin()
+{
+  return trigPin;
 }

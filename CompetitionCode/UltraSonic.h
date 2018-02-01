@@ -3,17 +3,21 @@
 #include <Arduino.h>
 
 class UltraSonic{
+ protected:
+  double cm;
+  double microseconds;
+  int echoPin;
+  int trigPin;
 public:
   UltraSonic(int echoNumber, int trigNumber);
   UltraSonic();
-  double microSecondsToCentimeter(double time);
-  double cm;
-  double microseconds;
+  virtual ~UltraSonic();
+  double microSecondsToCentimeter(double microseconds);
   double ping();
-  int echoPin;
-  int trigPin;
-  int setEchoPin(int pinNumber);
-  int setTrigPin(int pinNumber);
+  void setEchoPin(int pinNumber);
+  void setTrigPin(int pinNumber);
+  int getEchoPin();
+  int getTrigPin();
 };
 
 

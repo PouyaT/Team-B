@@ -3,20 +3,24 @@
 AnalogDevice::AnalogDevice(int pinNum)
 {
     pin = pinNum;
+}
 
+AnalogDevice::AnalogDevice()
+{
+  pin = -1;
 }
 
 AnalogDevice::~AnalogDevice()
 {
-    delete pin;
+
 }
 
-int AnalogDevice::read(int readPin)
+int AnalogDevice::read()
 {
-    return analogRead(readPin);
+  return analogRead(pin);
 }
 
-void AnalogDevice::write(int writePin, int value)
+void AnalogDevice::write(int value)
 {
-    return analogWrite(value);
+  analogWrite(pin, value);
 }

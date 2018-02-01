@@ -1,5 +1,4 @@
 #include "DigitalDevice.h"
-#include <Arduino.h>
 
 DigitalDevice::DigitalDevice(int pinNum)
 {
@@ -7,17 +6,22 @@ DigitalDevice::DigitalDevice(int pinNum)
 
 }
 
+DigitalDevice::DigitalDevice()
+{
+  pin = -1;
+}
+
 DigitalDevice::~DigitalDevice()
 {
-    delete pin;
+
 }
 
-int DigitalDevice::read(int readPin)
+int DigitalDevice::read()
 {
-    return digitalRead(readPin);
+    return digitalRead(pin);
 }
 
-void DigitalDevice::write(int writePin, int value)
+void DigitalDevice::write(int value)
 {
-    return digitalWrite(value);
+  return digitalWrite(pin, value);
 }
