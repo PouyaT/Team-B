@@ -2,19 +2,10 @@
 *******************************
 * (1) Sense
 *     -> If nothing, (2) Search
-*     -> If left sensor, (3) Turn 90* Left
-*     -> If right sensor, (4) Turn 90* Right
-*     -> If back sensor, (5) Turn 180*
-*     -> If front sensor, (6) Charge
+*     -> If front sensor, (3) Charge
 * (2) Search
 *     -> Rotate to get different sensor position, then (1) Sense
-* (3) Turn 90* Left
-*     -> Rotate, then (1) Sense
-* (4) Turn 90* Right    
-*     -> Rotate, then (1) Sense
-* (5) Turn 180*
-*     -> Rotate, then (1) Sense
-* (6) Charge
+* (3) Charge
 *     -> Full motor forward until timeout, then (1) Sense
 */
 
@@ -64,22 +55,13 @@ void loop()
 void attack(int state) {
   switch (state) {
   case 1:
-    state = sense();
+    state = sense(front);
     break;
   case 2:
-    state = search();
+    state = search(driveTrain);
     break;
   case 3:
-    state = LTurn();
-    break;
-  case 4:
-    state = RTurn();
-    break;
-  case 5:
-    state = HTurn();
-    break;
-  case 6:
-    state = charge();
+    state = charge(driveTrain, front);
     break;
   default:
     break;
@@ -88,24 +70,11 @@ void attack(int state) {
 
 // senses stuff
 // done
-int sense() {
+int sense(UltraSonic front) {
   sensors[0] = front.ping();
-  sensors[1] = back.ping();
-  sensors[2] = left.ping();
-  sensors[3] = right.ping();
   
   if (sensors[0] < MIN_DISTANCE) {
-    return 6;
-  }
-  else if (sensors[1] < MIN_DISTANCE) {
-    return 5;
-  }
-  else if (sensors[2] < MIN_DISTANCE) {
     return 3;
-  }
-  else if (sensors[3] < MIN_DISTANCE) {
-    return 4;
-  }
   else {
     return 2;
   }	 
@@ -114,47 +83,23 @@ int sense() {
 // Rotates a certain amount, then hands control back to sensor
 // Will probably need to implement a search pattern in an independent array
 // Not done
-int search() {
-
+int search(DriveTrain driveTrain)
+{
+	driveTrain.setRawOutput(1,-1);
   // call rotation method
+	
   
-  return 1;
-}
-
-// Turns left 90*
-// Not done
-int LTurn() {
-
-  // call rotation method  
-
-  return 1;
-}
-
-// Turns right 90*
-// Not done
-int RTurn() {
-  
-  // call rotation method
-
-  return 1;
-}
-
-// Turns 180*
-// Not done
-int HTurn() {
-
- // call rotation method
-
   return 1;
 }
 
 // charges forward to push opponent off
 // Done
-int charge() {
+int charge(DriveTrain driveTrain, UltraSonic front) {
   
   driveTrain.setRawOutput(1,1);
   
-  while ( front.ping() < MIN_DISTANCE ) {
+  while ( front.ping() < MIN_DISTANCE ) 
+  {
 
   }
 
