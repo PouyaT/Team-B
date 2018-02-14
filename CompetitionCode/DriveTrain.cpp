@@ -79,11 +79,21 @@ void DriveTrain::setRawOutput(float left, float right) {
 // to rotate bot
 void DriveTrain::rotation(int deg) {
   
-  // figure out raw output strength/length for rotations
+  int x = abs(deg);
+  int t = x; // convert x to some time period t for rotation
 
+  if ( deg > 0 ) {
+    setRawOutput(-1,1);
+  }
+  else {
+    setRawOutput(1,-1);
+  }
+
+  delay(t);
+  setRawOutput(0,0);
 }
 
 // the ultimate move
 void DriveTrain::ultimate() {
-  
+  setRawOutput(9000,9000);
 }

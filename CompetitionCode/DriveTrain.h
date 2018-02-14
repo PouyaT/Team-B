@@ -11,7 +11,7 @@ class DriveTrain {
   enum direction {
     forward,
     backward,
-    idle
+    idle,
   };
  private:
   float coerce(float value);

@@ -15,28 +15,21 @@
 #include "AnalogDevice.h"
 
 #define U1_PIN 1
-#define U2_PIN 2
-#define U3_PIN 3
-#define U4_PIN 4
 
 #define ML1_PIN 5
 #define ML2_PIN 6
 #define MR1_PIN 7
 #define MR2_PIN 8
 
-#define MIN_DISTANCE 80
+const int MIN_DISTANCE =  80;
 
 #define DISABLED 0
 #define ENABLED 1
 
 DriveTrain driveTrain = DriveTrain(ML1_PIN, ML2_PIN, MR1_PIN, MR2_PIN) ;
 UltraSonic front(U1_PIN);
-UltraSonic back(U2_PIN);
-UltraSonic left(U3_PIN);
-UltraSonic right(U4_PIN);
 
 int state = 1;
-int sensors [4];
 
 void setup()
 {
@@ -45,51 +38,38 @@ void setup()
 
 void loop()
 {
-  attack(state);
+  attack(state, driveTrain, front);
 }
 
 // attack code
 /********************/
 
 //done
-void attack(int state) {
+void attack(int state, DriveTrain driveTrain, UltraSonic front) {
   switch (state) {
   case 1:
-    state = sense(front);
+    state = search(driveTrain, front);
     break;
   case 2:
-    state = search(driveTrain);
-    break;
-  case 3:
     state = charge(driveTrain, front);
-    break;
   default:
     break;
   }
 }
 
-// senses stuff
-// done
-int sense(UltraSonic front) {
-  sensors[0] = front.ping();
-  
-  if (sensors[0] < MIN_DISTANCE) {
-    return 3;
-  else {
-    return 2;
-  }	 
-}
 
 // Rotates a certain amount, then hands control back to sensor
 // Will probably need to implement a search pattern in an independent array
 // Not done
-int search(DriveTrain driveTrain)
+int search(DriveTrain driveTrain, UltraSonic front)
 {
 	driveTrain.setRawOutput(1,-1);
-  // call rotation method
-	
   
-  return 1;
+	while ( front.ping() > MIN_DISTANCE ) {
+  
+	}
+  
+  return 2;
 }
 
 // charges forward to push opponent off
@@ -98,7 +78,7 @@ int charge(DriveTrain driveTrain, UltraSonic front) {
   
   driveTrain.setRawOutput(1,1);
   
-  while ( front.ping() < MIN_DISTANCE ) 
+  while ( front.ping() <= MIN_DISTANCE ) 
   {
 
   }
