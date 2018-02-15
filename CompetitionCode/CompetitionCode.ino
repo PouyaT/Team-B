@@ -18,8 +18,8 @@
 
 #define ML1_PIN 5
 #define ML2_PIN 6
-#define MR1_PIN 7
-#define MR2_PIN 8
+#define MR1_PIN 10
+#define MR2_PIN 11
 
 const int MIN_DISTANCE =  80;
 
